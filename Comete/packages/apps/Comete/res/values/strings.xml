@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="MissingTranslation" >
+    <string name="hello">Hello World, FlightGear!</string>
+    <string name="app_name">Comete</string>
+    <string name="reverser">REVERSER</string>
+    <string name="brake">BRAKE</string>
+    
+    <string name="quit">quit</string>
+    <string name="really_quit">Do you really wanna leave the cloche ?</string>
+
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+</resources>

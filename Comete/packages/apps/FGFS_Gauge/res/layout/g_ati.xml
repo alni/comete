@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:gravity="center">
+    <!-- Background (Rotation) -->
+    <alni.comete.android.widgets.RotatingImageView 
+     	android:id="@+id/ati_background"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:src="@drawable/ati3_1_1"
+    />
+    <!-- Pitch (Rotation +  Y-Shift) -->
+
+    <alni.comete.android.widgets.gauges.ai.AttitudeIndicator
+        android:id="@+id/ati_pitch"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ati_pitch" />
+
+    <!-- Roll (Rotation) -->
+    <alni.comete.android.widgets.RotatingImageView 
+     	android:id="@+id/ati_roll"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:src="@drawable/ati2_1_1"
+    />
+    <!-- Plane -->
+    <ImageView 
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:src="@drawable/ati_plane_1"
+     />     
+     <!-- Foreground -->
+
+     <ImageView
+         android:layout_width="200dp"
+         android:layout_height="200dp"
+         android:cropToPadding="true"
+         android:scaleType="centerInside"
+         android:src="@drawable/ati1_1" />
+
+</RelativeLayout>

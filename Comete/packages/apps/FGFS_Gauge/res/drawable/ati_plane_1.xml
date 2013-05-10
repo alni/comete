@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="150dp" android:left="100dp" android:right="100dp">
+      <bitmap android:src="@drawable/ati_plane"
+        android:gravity="center" />
+    </item>
+</layer-list>

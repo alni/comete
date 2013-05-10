@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:holo="http://schemas.android.com/apk/res-auto"
+   xmlns:robobunny="http://robobunny.com"
+   android:title="Screen"
+  >
+    <PreferenceCategory holo:title="Screen">
+        <CheckBoxPreference  holo:defaultValue="true" holo:key="orientationLandscape" holo:title="Force landscape mode"></CheckBoxPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

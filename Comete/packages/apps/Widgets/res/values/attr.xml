@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AnalogGauge">
+    	<attr name="minF" format="float" />
+    	<attr name="maxF" format="float" />
+    	<attr name="start" format="float" />
+    	<attr name="length" format="float" />
+    	<attr name="color" format="color" />
+    	<attr name="rotation" format="float" />
+    	<attr name="positiveColor" format="color" />
+    	<attr name="negativeColor" format="color" /> 
+    	<attr name="maxColor" format="color" />
+    	<attr name="okColor" format="color" />
+    	<attr name="warningColor" format="color" />
+    	<attr name="criticalColor" format="color" />
+    	<attr name="okValue" format="float" />
+    	<attr name="warningValue" format="float" />
+    	<attr name="criticalValue" format="float" />
+    </declare-styleable>
+</resources>

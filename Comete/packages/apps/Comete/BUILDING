@@ -1,0 +1,5 @@
+REQUIRED LIBRARIES
+Comete for FlightGear requires the following libraries to be build
+successfully:
+1. Comete Widgets
+2. Alni Common

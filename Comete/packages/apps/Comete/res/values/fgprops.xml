@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+  tools:ignore="MissingTranslation">
+    <string name="prop_throttle">/controls/engines/engine[%d]/throttle</string>
+    <string name="prop_mixture">/controls/engines/engine[%d]/mixture</string>
+    <string name="prop_propeller">/controls/engines/engine[%d]/propeller-pitch</string>
+    <string name="prop_magnetos">/controls/engines/engine[%d]/magnetos</string>
+    <string name="prop_starter2">/controls/switches/starter</string>
+    <string name="prop_starter">/controls/engines/engine[%d]/starter</string>
+    <string name="prop_starter_switch">/controls/engines/engine[%d]/starter-switch</string>
+    <string name="prop_reverser">/controls/engines/engine[%d]/reverser</string>
+    
+    
+    
+    <string name="prop_flap">/controls/flight/flaps</string>
+    <string name="prop_rudder">/controls/flight/rudder</string>
+    <string name="prop_aileron">/controls/flight/aileron</string>
+    <string name="prop_elevator">/controls/flight/elevator</string>
+    
+    <string name="prop_gearDown">/controls/gear/gear-down</string>
+    <string name="prop_autoCoordination">/sim/auto-coordination</string>
+    <string name="prop_parkingBrake">/controls/gear/brake-parking</string>
+    <string name="prop_brakeLeft">/controls/gear/brake-left</string>
+    <string name="prop_brakeRight">/controls/gear/brake-right</string>
+    
+    <string name="aileronMoltDefault">2</string>
+    <string name="elevatorMoltDefault">2.5</string>
+    <string name="elevatorSubDefault">0.25f</string>
+    <string name="rudderMoltDefault">2</string>
+    
+    
+    <string name="prop_airspeed">/velocities/airspeed-kt</string>
+    <string name="prop_airspeed_format">%4.2f</string>
+    <string name="prop_direction">/orientation/heading-deg</string>
+    <string name="prop_direction_format">%3.0f</string>
+
+
+    <string name="prop_nav1Freq">/instrumentation/nav/frequencies/selected-mhz</string>
+    <string name="prop_nav1Freq_format">%3.2f</string>
+    <string name="prop_nav1Rad">/instrumentation/nav/radials/selected-deg</string>
+    <string name="prop_nav1Rad_format">%3.0f</string>
+
+    <string name="prop_nav2Freq">/instrumentation/nav[1]/frequencies/selected-mhz</string>
+    <string name="prop_nav2Freq_format">%3.2f</string>
+    <string name="prop_nav2Rad">/instrumentation/nav[1]/radials/selected-deg</string>
+    <string name="prop_nav2Rad_format">%3.0f</string>
+
+    <string name="prop_adf1Freq">/instrumentation/adf/frequencies/selected-khz</string>
+    <string name="prop_adf1Freq_format">%3.0f</string>
+
+    <string name="prop_com1Freq">/instrumentation/com/frequencies/selected-mhz</string>
+    <string name="prop_com1Freq_format">%3.2f</string>
+    
+    <string name="prop_fgView">/sim/current-view/view-number</string>
+    
+</resources>

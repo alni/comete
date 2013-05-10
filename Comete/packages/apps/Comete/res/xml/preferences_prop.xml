@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:holo="http://schemas.android.com/apk/res-auto"
+    xmlns:robobunny="http://robobunny.com"
+	holo:title="prop.bindings">
+	    <PreferenceCategory holo:title="Engine">
+	        <EditTextPreference holo:title="Throttle" holo:key="throttleKey" holo:defaultValue="@string/prop_throttle"></EditTextPreference>
+	        <EditTextPreference holo:title="Mixture" holo:key="mixtureKey" holo:defaultValue="@string/prop_mixture"></EditTextPreference>
+	        <EditTextPreference holo:title="Propeller" holo:key="propellerKey" holo:defaultValue="@string/prop_propeller"></EditTextPreference>
+	        <EditTextPreference holo:title="Magnetos" holo:key="magnetosKey" holo:defaultValue="@string/prop_magnetos"></EditTextPreference>
+	        <EditTextPreference holo:title="Starter" holo:key="starterKey" holo:defaultValue="@string/prop_starter"></EditTextPreference>
+	        <EditTextPreference holo:title="Starter2" holo:key="starter2Key" holo:defaultValue="@string/prop_starter2"></EditTextPreference>
+	        <EditTextPreference holo:title="Starter switch" holo:key="starterSwitchKey" holo:defaultValue="@string/prop_starter_switch"></EditTextPreference>
+	        <EditTextPreference holo:title="Reverser" holo:key="reverserKey" holo:defaultValue="@string/prop_reverser"></EditTextPreference>        
+	    </PreferenceCategory>
+	    <PreferenceCategory holo:title="Surfaces">
+	        <EditTextPreference holo:title="Flaps" holo:key="flapKey" holo:defaultValue="@string/prop_flap"></EditTextPreference>
+	        <EditTextPreference holo:title="Rudder" holo:key="rudderKey" holo:defaultValue="@string/prop_rudder"></EditTextPreference>
+	        <EditTextPreference holo:title="Aileron" holo:key="aileronKey" holo:defaultValue="@string/prop_aileron"></EditTextPreference>
+	        <EditTextPreference holo:title="Elevator" holo:key="elevatorKey" holo:defaultValue="@string/prop_elevator"></EditTextPreference>
+	    </PreferenceCategory>
+	    
+	    <PreferenceCategory holo:title="Instrumentation">
+	        <EditTextPreference holo:title="Nav1 Freq" holo:key="nav1FreqKey" holo:defaultValue="@string/prop_nav1Freq"></EditTextPreference>
+	        <EditTextPreference holo:title="Nav1 Radial" holo:key="nav1RadKey" holo:defaultValue="@string/prop_nav1Rad"></EditTextPreference>
+	        <EditTextPreference holo:title="Nav2 Freq" holo:key="nav2FreqKey" holo:defaultValue="@string/prop_nav2Freq"></EditTextPreference>
+	        <EditTextPreference holo:title="Nav2 Radial" holo:key="nav2RadKey" holo:defaultValue="@string/prop_nav2Rad"></EditTextPreference>
+	        <EditTextPreference holo:title="Adf1 Freq" holo:key="adf1FreqKey" holo:defaultValue="@string/prop_adf1Freq"></EditTextPreference>
+	        <EditTextPreference holo:title="Com1 Freq" holo:key="com1FreqKey" holo:defaultValue="@string/prop_com1Freq"></EditTextPreference>
+	    </PreferenceCategory>
+	    <PreferenceCategory holo:title="Others">
+	        <EditTextPreference holo:title="Auto Coordination" holo:key="autoCoordinationKey" holo:defaultValue="@string/prop_autoCoordination"></EditTextPreference>
+	        <EditTextPreference holo:title="Parking Brake" holo:key="parkingBrakeKey" holo:defaultValue="@string/prop_parkingBrake"></EditTextPreference>
+	        <EditTextPreference holo:title="Gear down" holo:key="gearDownKey" holo:defaultValue="@string/prop_gearDown"></EditTextPreference>
+	        <EditTextPreference holo:title="Brake Left" holo:key="brakeLeftPropKey" holo:defaultValue="@string/prop_brakeLeft"></EditTextPreference>
+	        <EditTextPreference holo:title="Brake Right" holo:key="brakeRightPropKey" holo:defaultValue="@string/prop_brakeRight"></EditTextPreference>
+	        
+			<EditTextPreference holo:title="View" holo:key="fgViewKey" holo:defaultValue="@string/prop_fgView"></EditTextPreference>
+	    </PreferenceCategory>
+	    <PreferenceCategory holo:title="Getting...">
+	        <CheckBoxPreference  holo:defaultValue="true" holo:key="enableGetting" holo:title="Enable getting of data"></CheckBoxPreference>
+	        <EditTextPreference holo:title="Airspeed" holo:key="airspeedKey" holo:defaultValue="@string/prop_airspeed"></EditTextPreference>	
+	    </PreferenceCategory>
+</PreferenceScreen>

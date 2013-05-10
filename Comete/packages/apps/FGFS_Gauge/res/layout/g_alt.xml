@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:gravity="center">
+    <!-- Backplate + 10k needle -->
+    <!-- <alni.comete.android.widgets.RotatingImageView
+     	android:id="@+id/alt_needle_10k"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:background="@drawable/alt1_1"
+    	android:src="@drawable/alt_10k_needle_1"
+    />-->
+    <!-- 1k needle -->
+    <alni.comete.android.widgets.RotatingImageView
+     	android:id="@+id/alt_needle_1k"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:background="@drawable/alt1_1"
+    	android:src="@drawable/alt_1k_needle_1"
+    />
+    <!-- needle -->
+    <alni.comete.android.widgets.RotatingImageView
+     	android:id="@+id/alt_needle"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:src="@drawable/alt_needle_1"
+    />
+</RelativeLayout>

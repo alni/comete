@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      android:versionCode="1"
+      android:versionName="1.0" package="alni.android.comete.gauges.fgfs">
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17"/>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <supports-screens android:normalScreens="false" android:smallScreens="false" android:anyDensity="false" android:largeScreens="true" android:xlargeScreens="true"></supports-screens>
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity android:name="alni.android.comete.gauges.fgfs.FlightGear"
+                  android:label="@string/app_name" android:theme="@style/Holo.Theme.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>

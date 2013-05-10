@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:alni="http://schemas.android.com/apk/res/info.alni.comete.android"
+	xmlns:brisa="http://brisa.brisa"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:keepScreenOn="true">
+    
+
+    
+    <RelativeLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="175dp"
+    	android:layout_centerHorizontal="true"
+    	android:layout_centerVertical="true" android:id="@+id/relativeLayout1">
+    	<alni.comete.android.widgets.gauges.VerticalNegPosAnalogGauge 
+    		android:id="@+id/gElevator"
+    		android:layout_width="125dp"
+    		android:layout_height="125dp"
+    		android:layout_alignParentLeft="true"
+    		alni:color="#ff9d9e9d"
+    		alni:maxColor="#ff0000"
+    		alni:minF="-1.0"
+    		alni:maxF="1.0"
+    		alni:okValue="0.20"
+    		alni:warningValue="0.40"
+    		alni:criticalValue="0.80"
+    		alni:warningColor="#FFA500"
+    		alni:criticalColor="#ff0000"
+    		alni:okColor="#00ff00"
+    	android:layout_centerVertical="true"/>
+    	<!-- 
+ 	    	alni:negativeColor="#87CEEB"
+    		alni:positiveColor="#7CFC00"
+    	 -->
+    	<alni.comete.android.widgets.gauges.NegPosAnalogGauge 
+    		android:id="@+id/gAileron"
+    		android:layout_width="125dp"
+    		android:layout_height="125dp"
+    		android:layout_centerVertical="true"
+    		android:layout_alignParentRight="true"
+    		alni:color="#ff9d9e9d"
+    		alni:maxColor="#ff0000"
+    		alni:minF="-1.0"
+    		alni:maxF="1.0"
+    		alni:okValue="0.20"
+    		alni:warningValue="0.40"
+    		alni:criticalValue="0.80"
+    		alni:warningColor="#FFA500"
+    		alni:criticalColor="#ff0000"
+    		alni:okColor="#00ff00"
+    	/>
+    	
+    </RelativeLayout>
+    <com.tokaracamara.android.verticalslidebar.VerticalSeekBar
+    	android:background="@drawable/background_plain"
+	    android:focusable="false"
+	    android:focusableInTouchMode="true"
+	    android:id="@+id/throttle"
+	    android:progressDrawable="@drawable/seekbar_vertical_plain"
+	    android:thumb="@drawable/seek_thumb_plain"
+	    android:layout_height="fill_parent"
+	    android:layout_width="50dip"
+	    android:layout_alignParentLeft="true"/>
+    <com.tokaracamara.android.verticalslidebar.VerticalSeekBar
+    	android:background="@drawable/background_plain"
+	    android:focusable="false"
+	    android:focusableInTouchMode="true"
+	    android:id="@+id/flaps"
+	    android:progressDrawable="@drawable/seekbar_vertical_plain"
+	    android:thumb="@drawable/seek_thumb_plain"
+	    android:max="10"
+	    android:progress="10"
+	    android:layout_height="fill_parent"
+	    android:layout_width="50dip"
+	    android:layout_alignParentRight="true"/>
+	    
+	    
+    <LinearLayout android:id="@+id/actionbar"
+	    android:orientation="vertical"    
+	   	android:layout_width="wrap_content"
+	   	android:layout_height="wrap_content"
+	   	android:layout_centerHorizontal="true" android:layout_alignParentBottom="true" android:layout_marginBottom="30dp">
+        
+    >
+<!-- 	    <LinearLayout android:id="@+id/actionbar2" -->
+<!-- 	    	android:orientation="horizontal" -->
+<!-- 	    	android:layout_width="fill_parent" -->
+<!-- 	    	android:layout_height="wrap_content" -->
+<!-- 	    	android:layout_alignParentBottom="true" -->
+<!-- 	    	android:layout_centerHorizontal="true"> -->
+	    	<!--<alni.comete.android.fgfs.FGToggleButton android:id="@+id/gear"
+	    		android:background="@drawable/toggle_button_background"
+	    		android:typeface="monospace"
+	    		android:textOn="GEAR"
+	    		android:textOff="GEAR"
+	    		android:padding="12.5dp"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:gravity="right"
+	    	/-->
+<!-- 	    	<Button android:text="Engine" android:layout_height="wrap_content" android:onClick="onGoToCockpit" android:layout_width="fill_parent"></Button> -->
+<!-- 	    </LinearLayout> -->
+	    <LinearLayout android:id="@+id/actionbar2"
+	    	android:orientation="horizontal"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_alignParentBottom="true"
+	    	android:layout_marginBottom="25dp"
+	    	android:layout_centerHorizontal="true">
+	    	<ToggleButton android:id="@+id/reverser" 
+	    		android:background="@drawable/toggle_button_background"
+	    		android:typeface="monospace"
+	    		android:textOn="REVERSER"
+	    		android:textOff="REVERSER"
+	    		android:gravity="center"
+	    		android:padding="12.5dp"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:layout_marginRight="25dp"
+	    	/>
+	    	<ToggleButton android:id="@+id/brake"
+	    		android:background="@drawable/toggle_button_background"
+	    		android:typeface="monospace"
+	    		android:textOn="BRAKE"
+	    		android:textOff="BRAKE"
+	    		android:gravity="center"
+	    		android:padding="12.5dp"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    	/>
+	    </LinearLayout>
+    </LinearLayout>
+    <SeekBar 
+        android:background="@drawable/background_plain"
+    	android:id="@+id/rudder"
+    	android:progressDrawable="@drawable/seekbar_vertical_plain"
+		android:thumb="@drawable/seek_thumb_plain2"
+    	android:layout_width="match_parent" 
+    	android:layout_alignParentBottom="true" 
+    	android:layout_marginLeft="50dp"
+    	android:layout_marginRight="50dp" android:layout_height="50dp" android:max="200" android:progress="100"></SeekBar>
+    <Button 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:text="Reconnect..." 
+    	android:layout_centerHorizontal="true" 
+    	android:id="@+id/reconnectButton"
+    	android:onClick="reconnect"
+   	></Button>
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:text="TextView" android:id="@+id/textViewReconnect" 
+    	android:layout_centerHorizontal="true" 
+    	     	
+    	android:layout_below="@+id/reconnectButton"
+    	></TextView>
+    	
+    <info.alni.comete.android.DigitalInstrument 
+    	android:id="@+id/txt_airspeed" 
+    	style="@style/Led7Segments" 
+    	android:layout_centerHorizontal="true" 
+    	android:layout_below="@+id/textViewReconnect"
+    	brisa:name="Tas"
+    	brisa:value="0.00" 
+    	brisa:unit="Kts" 
+    	/>
+    <info.alni.comete.android.DigitalInstrument 
+    	android:id="@+id/txt_direction" 
+    	style="@style/Led7Segments" 
+    	android:layout_centerHorizontal="true" 
+    	android:layout_below="@+id/txt_airspeed"
+    	brisa:name="Hdg"
+    	brisa:value="0.00" 
+    	brisa:unit="" 
+    	/>
+<!--     <Button  -->
+<!--     	android:layout_height="wrap_content"  -->
+<!--     	android:layout_alignParentTop="true"  -->
+<!--     	android:text="Radio"  -->
+<!--     	android:layout_alignParentRight="true"  -->
+<!--     	android:layout_width="wrap_content"  -->
+<!--     	android:layout_marginRight="50dp"  -->
+<!--     	android:width="100dp"  -->
+<!--     	android:onClick="onGoToRadio"  -->
+<!--     	android:id="@+id/radioButton" -->
+<!--    	></Button> -->
+    <Button 
+    	android:layout_height="wrap_content" 
+    	android:layout_alignParentTop="true" 
+    	android:text="View" 
+    	android:layout_alignParentLeft="true" 
+    	android:layout_width="wrap_content" 
+    	android:layout_marginLeft="50dp" 
+    	android:width="100dp" 
+    	android:onClick="onChangeFGView" 
+    	android:id="@+id/fgViewButton"
+   	></Button>
+
+</RelativeLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:gravity="center">
+    <alni.comete.android.widgets.RotatingImageView
+     	android:id="@+id/vsi"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:background="@drawable/vsi1_1"
+    	android:src="@drawable/vsi_needle_1"
+    />
+    <!-- Foreground -->
+    <!-- <ImageView
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:src="@drawable/asi1"
+    />-->
+</RelativeLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:holo="http://schemas.android.com/apk/res-auto">
+    <header
+       holo:fragment="info.alni.comete.android.Preferences$SettingsFragment"
+        	holo:title="prop.bindings">
+        <extra android:name="settings" android:value="prop.bindings" />
+    </header>
+    <header
+        holo:fragment="info.alni.comete.android.Preferences$SettingsFragment"
+        	holo:title="sensibility">
+        <extra android:name="settings" android:value="sensibility" />
+    </header>
+    <header
+        holo:fragment="info.alni.comete.android.Preferences$SettingsFragment"
+        	holo:title="Screen">
+        <extra android:name="settings" android:value="Screen" />
+    </header>
+
+</preference-headers>

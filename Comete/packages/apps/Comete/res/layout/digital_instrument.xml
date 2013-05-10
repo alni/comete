@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_height="wrap_content" android:layout_width="wrap_content" android:baselineAligned="false"  
+  
+  >
+    <TextView android:text="Name" android:id="@+id/di_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginRight="4px"></TextView>
+     <TextView 
+    	android:id="@+id/di_value" 
+    	style="@style/Led7Segments" 
+    	android:text="0123456789." 
+    	android:layout_centerHorizontal="true" 
+    	android:layout_gravity="center"></TextView>
+    <TextView android:text="Unit" android:id="@+id/di_unit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginLeft="4px"></TextView>
+</LinearLayout>

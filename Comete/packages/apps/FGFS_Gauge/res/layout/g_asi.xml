@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:gravity="center">
+    <alni.comete.android.widgets.RotatingImageView
+     	android:id="@+id/asi"
+    	android:layout_width="200dp"
+    	android:layout_height="200dp"
+    	android:scaleType="centerInside"
+    	android:background="@drawable/asi2"
+    	android:src="@drawable/asi_needle_1"
+    />
+</RelativeLayout>

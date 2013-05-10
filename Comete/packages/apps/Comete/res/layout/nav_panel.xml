@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="1">
+        <TextView android:layout_height="wrap_content" android:text="Nav1:" android:layout_width="wrap_content" android:layout_marginRight="5dp" android:width="50dp"></TextView>
+	    <EditText android:layout_height="wrap_content" android:inputType="numberDecimal" android:layout_width="wrap_content" android:width="85dp" android:text="000.00" android:gravity="right" android:id="@+id/nav1Freq" android:selectAllOnFocus="true">
+	        <requestFocus></requestFocus>
+	    </EditText>
+	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="setNav1Freq" android:drawableLeft="@drawable/yes_16x16"></Button>
+	    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Radial:" android:layout_marginRight="5dp" android:layout_marginLeft="10dp"></TextView>
+
+	    
+	    <SeekBar 
+        android:background="@drawable/background_plain"
+    	android:id="@+id/nav1Rad"
+    	android:progressDrawable="@drawable/seekbar_vertical_plain"
+		android:thumb="@drawable/seek_thumb_plain2"
+    	android:layout_alignParentBottom="true" 
+    	android:layout_height="50dp" android:max="360" android:progress="0" android:layout_width="fill_parent"></SeekBar>
+	    
+	    
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="1">
+        <TextView android:layout_height="wrap_content" android:text="Nav2:" android:layout_width="wrap_content" android:layout_marginRight="5dp"  android:width="50dp"></TextView>
+	    <EditText android:layout_height="wrap_content" android:inputType="numberDecimal" android:layout_width="wrap_content" android:width="85dp" android:text="000.00" android:gravity="right" android:id="@+id/nav2Freq" android:selectAllOnFocus="true">
+	        <requestFocus></requestFocus>
+	    </EditText>
+	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="setNav2Freq" android:drawableLeft="@drawable/yes_16x16"></Button>
+	    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Radial:" android:layout_marginRight="5dp" android:layout_marginLeft="10dp"></TextView>
+
+	    
+	    <SeekBar 
+        android:background="@drawable/background_plain"
+    	android:id="@+id/nav2Rad"
+    	android:progressDrawable="@drawable/seekbar_vertical_plain"
+		android:thumb="@drawable/seek_thumb_plain2"
+    	android:layout_alignParentBottom="true" 
+    	android:layout_height="50dp" android:max="360" android:progress="0" android:layout_width="fill_parent"></SeekBar>
+	    
+	    
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="1">
+        <TextView android:layout_height="wrap_content" android:text="ADF1:" android:layout_width="wrap_content" android:layout_marginRight="5dp" android:width="50dp"></TextView>
+	    <EditText android:layout_height="wrap_content" android:inputType="number" android:layout_width="wrap_content" android:width="85dp" android:text="0" android:gravity="right" android:id="@+id/adf1Freq" android:selectAllOnFocus="true">
+	        <requestFocus></requestFocus>
+	    </EditText>	    
+	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="setAdf1Freq" android:drawableLeft="@drawable/yes_16x16"></Button>
+    </LinearLayout>
+    
+    
+    
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:weightSum="1">
+        <TextView android:layout_height="wrap_content" android:text="Com1:" android:layout_width="wrap_content" android:layout_marginRight="5dp" android:width="50dp"></TextView>
+	    <EditText android:layout_height="wrap_content" android:inputType="numberDecimal" android:layout_width="wrap_content" android:width="85dp" android:text="000.00" android:gravity="right" android:id="@+id/com1Freq" android:selectAllOnFocus="true">
+	        <requestFocus></requestFocus>
+	    </EditText>
+	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="setCom1Freq" android:drawableLeft="@drawable/yes_16x16"></Button>
+    </LinearLayout>    
+
+    <Button android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="Back" android:onClick="onGoToMainView"></Button>
+    
+</LinearLayout>

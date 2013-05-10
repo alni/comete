@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:holo="http://schemas.android.com/apk/res-auto"
+   xmlns:robobunny="http://robobunny.com"
+   holo:title="sensibility">
+        <PreferenceCategory holo:title="Aileron">            
+            <alni.comete.android.fgfs.SeekBarPreference
+            	holo:key="aileronMoltDefaultKey"
+                holo:title="Moltiply"
+                holo:summary="Adjust moltiply factor"
+                holo:defaultValue="@string/aileronMoltDefault"
+                robobunny:max="4.0"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+        </PreferenceCategory>
+        <PreferenceCategory holo:title="Elevator">
+             <alni.comete.android.fgfs.SeekBarPreference
+            	holo:key="elevatorMoltDefaultKey"
+                holo:title="Moltiply"
+                holo:summary="Adjust moltiply factor"
+                holo:defaultValue="@string/elevatorMoltDefault"
+                robobunny:max="4.0"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+            
+            <alni.comete.android.fgfs.SeekBarPreference
+            	holo:key="elevatorSubDefaultKey"
+                holo:title="Subtract"
+                holo:summary="Adjust moltiply factor"
+                holo:defaultValue="@string/elevatorSubDefault"
+                robobunny:min="-1"
+                robobunny:max="1"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+        </PreferenceCategory>
+        <PreferenceCategory holo:title="Rudder">            
+            <alni.comete.android.fgfs.SeekBarPreference
+            	holo:key="rudderMoltDefaultKey"
+                holo:title="Moltiply"
+                holo:summary="Adjust moltiply factor"
+                holo:defaultValue="@string/rudderMoltDefault"
+                robobunny:max="4.0"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+        </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:keepScreenOn="true">
+   
+	   <LinearLayout android:id="@+id/linearLayout2" android:layout_width="fill_parent" android:layout_marginRight="105dp" android:layout_height="wrap_content" android:orientation="vertical">
+	   
+	    <RelativeLayout android:layout_width="match_parent" android:id="@+id/relativeLayout1" android:layout_height="fill_parent">
+	    <info.alni.comete.android.FGToggleButton
+	    	android:text="ToggleButton" 
+	    	android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_toRightOf="@+id/textView1" 
+	    	android:checked="true" 
+	    	android:id="@+id/autoCoordination" 
+	    	android:paddingLeft="12dp" 
+	    	android:paddingRight="12dp"
+    	/>
+	    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="auto-coordination" android:id="@+id/textView1" android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:layout_marginRight="5dp"></TextView>
+	    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="calibrate" android:text="Calibrate" android:layout_alignParentTop="true" android:layout_alignParentRight="true" ></Button>	   	      
+	    </RelativeLayout>	 
+	    <LinearLayout android:layout_width="fill_parent"  android:layout_height="wrap_content">
+	    <info.alni.comete.android.FGToggleButton 
+	    	android:text="ToggleButton" 
+	    	android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content" 
+	    	android:id="@+id/gear2" 
+	    	android:checked="true" 
+	    	android:textOff="Gear up" 
+	    	android:textOn="Gear down" 
+	    	android:paddingRight="12dp" 
+	    	android:paddingLeft="12dp"	    	
+    		android:background="@drawable/toggle_button_background"
+    		android:paddingTop="12dp" android:paddingBottom="12dp"
+   		/>
+	    <info.alni.comete.android.FGToggleButton 
+		    android:text="ToggleButton" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:id="@+id/parking_brake" 
+		    android:checked="true" 
+		    android:textOff="P. Brake Off" 
+		    android:textOn="P. Brake On"
+		    android:background="@drawable/toggle_button_background"
+		    android:paddingTop="12dp" android:paddingBottom="12dp" android:layout_marginLeft="12dp" android:paddingLeft="12dp" android:paddingRight="12dp"/>
+	    </LinearLayout>
+	    <LinearLayout android:layout_width="fill_parent"  android:layout_height="wrap_content">
+			    
+			    <TextView android:layout_width="55px" android:layout_height="wrap_content" android:text="-"  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"  ></TextView>
+			    <TextView android:layout_width="55px" android:layout_height="wrap_content" android:text="L"  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"  ></TextView>
+			    <TextView android:layout_width="55px" android:layout_height="wrap_content" android:text="R"  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"  ></TextView>
+			    <TextView android:layout_width="55px" android:layout_height="wrap_content" android:text="B"  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"  ></TextView>
+			    <TextView android:layout_width="80px" android:layout_height="wrap_content" android:text="Mag."  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"  ></TextView>	        
+	    </LinearLayout>
+	    <LinearLayout android:layout_width="fill_parent"  android:layout_height="wrap_content">
+			<RadioGroup  android:orientation="horizontal" android:layout_width="220px" android:layout_height="wrap_content">
+	            <RadioButton android:onClick="setMagZero" android:layout_width="55px" android:layout_height="wrap_content" android:checked="true" android:id="@+id/mag0" ></RadioButton>
+	            <RadioButton android:onClick="setMagLeft" android:layout_width="55px" android:layout_height="wrap_content" android:id="@+id/mag1"></RadioButton>
+	            <RadioButton android:onClick="setMagRight" android:layout_width="55px" android:layout_height="wrap_content" android:id="@+id/mag2"></RadioButton>
+	            <RadioButton android:onClick="setMagBoth" android:layout_width="55px" android:layout_height="wrap_content" android:id="@+id/mag3"></RadioButton>
+	        </RadioGroup>
+		    <Button android:text="Start" android:id="@+id/buttonStart" android:layout_width="80px"  android:layout_height="wrap_content"></Button>	    
+	     	
+	    </LinearLayout>
+	     		   
+	    <Button 
+	    	android:text="Back" 	    	
+	    	android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content" 
+	    	android:onClick="onGoToMainView"
+    	></Button>
+	    </LinearLayout>
+	    
+<LinearLayout  android:layout_width="50dip"  android:layout_marginRight="55dp" android:layout_height="fill_parent" android:orientation="vertical"
+ android:layout_alignParentRight="true">
+ <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Prop"  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"   ></TextView>
+ <com.tokaracamara.android.verticalslidebar.VerticalSeekBar
+    	android:background="@drawable/background_plain"
+	    android:focusable="false"
+	    android:focusableInTouchMode="true"
+	    android:id="@+id/propeller"
+	    android:progressDrawable="@drawable/seekbar_vertical_plain"
+	    android:thumb="@drawable/seek_thumb_plain"
+	    android:max="10"
+	    android:progress="1"
+	    android:layout_height="fill_parent"
+	    android:layout_width="50dip"
+	    android:layout_alignParentRight="true"
+	    />
+</LinearLayout>	    
+  <LinearLayout  android:layout_width="50dip"  android:layout_height="fill_parent" android:orientation="vertical"
+ android:layout_alignParentRight="true">
+ <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Mix"  android:layout_centerVertical="true" android:layout_alignParentLeft="true" android:gravity="center_horizontal"  ></TextView>
+ <com.tokaracamara.android.verticalslidebar.VerticalSeekBar
+    	android:background="@drawable/background_plain"
+	    android:focusable="false"
+	    android:focusableInTouchMode="true"
+	    android:id="@+id/mixture"
+	    android:progressDrawable="@drawable/seekbar_vertical_plain"
+	    android:thumb="@drawable/seek_thumb_plain"
+	    android:max="10"
+	    android:progress="1"
+	    android:layout_height="fill_parent"
+	    android:layout_width="50dip"
+	    android:layout_alignParentRight="true"
+	    />
+</LinearLayout>
+  	    
+  
+	    
+</RelativeLayout>

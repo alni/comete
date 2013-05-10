@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:robobunny="http://robobunny.com"
+  >
+    <PreferenceCategory android:title="prop.bindings">
+	    <PreferenceScreen android:title="Engine">
+	        <EditTextPreference android:title="Throttle" android:key="throttleKey" android:defaultValue="@string/prop_throttle"></EditTextPreference>
+	        <EditTextPreference android:title="Mixture" android:key="mixtureKey" android:defaultValue="@string/prop_mixture"></EditTextPreference>
+	        <EditTextPreference android:title="Propeller" android:key="propellerKey" android:defaultValue="@string/prop_propeller"></EditTextPreference>
+	        <EditTextPreference android:title="Magnetos" android:key="magnetosKey" android:defaultValue="@string/prop_magnetos"></EditTextPreference>
+	        <EditTextPreference android:title="Starter" android:key="starterKey" android:defaultValue="@string/prop_starter"></EditTextPreference>
+	        <EditTextPreference android:title="Starter2" android:key="starter2Key" android:defaultValue="@string/prop_starter2"></EditTextPreference>
+	        <EditTextPreference android:title="Starter switch" android:key="starterSwitchKey" android:defaultValue="@string/prop_starter_switch"></EditTextPreference>
+	        <EditTextPreference android:title="Reverser" android:key="reverserKey" android:defaultValue="@string/prop_reverser"></EditTextPreference>        
+	    </PreferenceScreen>
+	    <PreferenceScreen android:title="Surfaces">
+	        <EditTextPreference android:title="Flaps" android:key="flapKey" android:defaultValue="@string/prop_flap"></EditTextPreference>
+	        <EditTextPreference android:title="Rudder" android:key="rudderKey" android:defaultValue="@string/prop_rudder"></EditTextPreference>
+	        <EditTextPreference android:title="Aileron" android:key="aileronKey" android:defaultValue="@string/prop_aileron"></EditTextPreference>
+	        <EditTextPreference android:title="Elevator" android:key="elevatorKey" android:defaultValue="@string/prop_elevator"></EditTextPreference>
+	    </PreferenceScreen>
+	    
+	    <PreferenceScreen android:title="Instrumentation">
+	        <EditTextPreference android:title="Nav1 Freq" android:key="nav1FreqKey" android:defaultValue="@string/prop_nav1Freq"></EditTextPreference>
+	        <EditTextPreference android:title="Nav1 Radial" android:key="nav1RadKey" android:defaultValue="@string/prop_nav1Rad"></EditTextPreference>
+	        <EditTextPreference android:title="Nav2 Freq" android:key="nav2FreqKey" android:defaultValue="@string/prop_nav2Freq"></EditTextPreference>
+	        <EditTextPreference android:title="Nav2 Radial" android:key="nav2RadKey" android:defaultValue="@string/prop_nav2Rad"></EditTextPreference>
+	        <EditTextPreference android:title="Adf1 Freq" android:key="adf1FreqKey" android:defaultValue="@string/prop_adf1Freq"></EditTextPreference>
+	        <EditTextPreference android:title="Com1 Freq" android:key="com1FreqKey" android:defaultValue="@string/prop_com1Freq"></EditTextPreference>
+	    </PreferenceScreen>
+	    <PreferenceScreen android:title="Others">
+	        <EditTextPreference android:title="Auto Coordination" android:key="autoCoordinationKey" android:defaultValue="@string/prop_autoCoordination"></EditTextPreference>
+	        <EditTextPreference android:title="Parking Brake" android:key="parkingBrakeKey" android:defaultValue="@string/prop_parkingBrake"></EditTextPreference>
+	        <EditTextPreference android:title="Gear down" android:key="gearDownKey" android:defaultValue="@string/prop_gearDown"></EditTextPreference>
+	        <EditTextPreference android:title="Brake Left" android:key="brakeLeftPropKey" android:defaultValue="@string/prop_brakeLeft"></EditTextPreference>
+	        <EditTextPreference android:title="Brake Right" android:key="brakeRightPropKey" android:defaultValue="@string/prop_brakeRight"></EditTextPreference>
+	        
+			<EditTextPreference android:title="View" android:key="fgViewKey" android:defaultValue="@string/prop_fgView"></EditTextPreference>
+	    </PreferenceScreen>
+	    <PreferenceScreen android:title="Getting...">
+	        <CheckBoxPreference  android:defaultValue="true" android:key="enableGetting" android:title="Enable getting of data"></CheckBoxPreference>
+	        <EditTextPreference android:title="Airspeed" android:key="airspeedKey" android:defaultValue="@string/prop_airspeed"></EditTextPreference>	
+	    </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="sensibility">
+    <PreferenceScreen android:title="sensibility">
+        <PreferenceCategory android:title="Aileron">            
+            <alni.comete.android.fgfs.SeekBarPreference
+            	android:key="aileronMoltDefaultKey"
+                android:title="Moltiply"
+                android:summary="Adjust moltiply factor"
+                android:defaultValue="@string/aileronMoltDefault"
+                robobunny:max="4.0"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="Elevator">
+             <alni.comete.android.fgfs.SeekBarPreference
+            	android:key="elevatorMoltDefaultKey"
+                android:title="Moltiply"
+                android:summary="Adjust moltiply factor"
+                android:defaultValue="@string/elevatorMoltDefault"
+                robobunny:max="4.0"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+            
+            <alni.comete.android.fgfs.SeekBarPreference
+            	android:key="elevatorSubDefaultKey"
+                android:title="Subtract"
+                android:summary="Adjust moltiply factor"
+                android:defaultValue="@string/elevatorSubDefault"
+                robobunny:min="-1"
+                robobunny:max="1"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="Rudder">            
+            <alni.comete.android.fgfs.SeekBarPreference
+            	android:key="rudderMoltDefaultKey"
+                android:title="Moltiply"
+                android:summary="Adjust moltiply factor"
+                android:defaultValue="@string/rudderMoltDefault"
+                robobunny:max="4.0"
+                robobunny:interval="0.01"
+                robobunny:units=""                
+            />
+        </PreferenceCategory>
+        
+    </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Screen">
+        <CheckBoxPreference  android:defaultValue="true" android:key="orientationLandscape" android:title="Force landscape mode"></CheckBoxPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
