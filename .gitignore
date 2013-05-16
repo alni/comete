@@ -14,6 +14,7 @@ tmp/
 local.properties
 .classpath
 .settings/
+gen/
 .loadpath
 
 # External tool builders
@@ -68,7 +69,6 @@ local.properties
 
 =======
 >>>>>>> Added FSUIPC lua scripts
-gen/
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
 #packages/

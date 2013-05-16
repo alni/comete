@@ -2,7 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <include layout="@layout/panel" />
+    <ScrollView android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView android:layout_width="wrap_content"
+        	android:layout_height="wrap_content">
+            <include layout="@layout/panel" />
+        </HorizontalScrollView>
+    </ScrollView>
+    
     <TextView android:id="@+id/diag"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"

@@ -1,11 +1,12 @@
-package alni.android.comete.gauges.fgfs;
+package info.alni.android.comete.gauges;
 
 import static alni.android.common.CommonUtils.showMsg;
 
 import java.io.IOException;
 import java.util.Locale;
 
-import alni.android.comete.gauges.fgfs.R;
+import info.alni.android.comete.gauges.R;
+
 import org.apache.commons.math.ArgumentOutsideDomainException;
 import org.flightgear.fgfsclient.FGFSConnection;
 import org.holoeverywhere.app.Activity;
@@ -14,6 +15,7 @@ import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.app.ProgressDialog;
 import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.Spinner;
 import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
@@ -26,12 +28,13 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 import alni.android.common.StringUtils;
 import alni.comete.android.widgets.*;
 import alni.comete.android.widgets.gauges.ai.AttitudeIndicator;
 
-public class FlightGear extends Activity {
+public class Comete extends Activity {
 	private static final int DIALOG_CONNECT_ID = 0;
 	private static final int DIALOG_HELP_ID = 1;
 
@@ -43,7 +46,10 @@ public class FlightGear extends Activity {
 	private AttitudeIndicator ati_pitch;
 
 	private FGFSConnection fgfs;
+	private MSFSConnection msfs;
 	private SharedPreferences connectionPrefs;
+	
+	private Menu mMenu;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -121,6 +127,7 @@ public class FlightGear extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.main, menu);
+		mMenu = menu;
 		return true;
 	}
 
@@ -131,8 +138,8 @@ public class FlightGear extends Activity {
 	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		menu.findItem(R.id.connect).setEnabled(fgfs == null);
-		menu.findItem(R.id.disconnect).setEnabled(fgfs != null);
+		menu.findItem(R.id.connect).setEnabled(fgfs == null && msfs == null);
+		menu.findItem(R.id.disconnect).setEnabled(fgfs != null || msfs != null);
 		return true;
 	}
 
@@ -151,6 +158,10 @@ public class FlightGear extends Activity {
 				if (fgfs != null)
 					fgfs.close();
 				fgfs = null;
+				if (msfs != null)
+					msfs.close();
+				msfs = null;
+				onPrepareOptionsMenu(mMenu);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -179,10 +190,11 @@ public class FlightGear extends Activity {
 	}
 
 	private AlertDialog createConnectDialog() {
-		final LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(
+		final View ll = getLayoutInflater().inflate(
 				R.layout.connect_dialog, null);
 		final EditText etIpAddress = (EditText) ll.findViewById(R.id.ipAddress);
 		final EditText etPort = (EditText) ll.findViewById(R.id.port);
+		final Spinner sSimType = (Spinner) ll.findViewById(R.id.sim_type);
 		etIpAddress.setText(connectionPrefs.getString("ipAddress", ""));
 		etPort.setText(connectionPrefs.getString("port", ""));
 		return new AlertDialog.Builder(this)
@@ -197,25 +209,27 @@ public class FlightGear extends Activity {
 								String ipAddress = etIpAddress.getText()
 										.toString();
 								String port = etPort.getText().toString();
+								int simType = sSimType.getSelectedItemPosition();
 								if (StringUtils.validateIPAddress(ipAddress)
 										&& StringUtils.validatePort(port)) {
 									Editor editor = connectionPrefs.edit();
 									editor.putString("ipAddress", ipAddress);
 									editor.putString("port", port);
+									editor.putInt("simType", simType);
 									editor.commit();
 									try {
 										mConnectingDialog = ProgressDialog
-												.show(FlightGear.this,
+												.show(Comete.this,
 														"",
 														"Connecting. Please wait...",
 														true);
 
 										Thread t = new Thread(new ConnectTask(
 												ipAddress, Integer
-														.parseInt(port)));
+														.parseInt(port), simType));
 										t.start();
 									} catch (NumberFormatException e) {
-										showMsg(FlightGear.this, e.toString());
+										showMsg(Comete.this, e.toString());
 										e.printStackTrace();
 									}
 								}
@@ -242,13 +256,16 @@ public class FlightGear extends Activity {
 		 */
 		@Override
 		public void handleMessage(Message msg) {
+			if (mMenu != null) {
+				Comete.this.onPrepareOptionsMenu(mMenu);
+			}
 
 			mConnectingDialog.dismiss();
 			if (msg != null && msg.obj != null) {
-				showMsg(FlightGear.this, (String) msg.obj);
+				showMsg(Comete.this, (String) msg.obj);
 				return;
 			}
-			if (fgfs == null)
+			if (fgfs == null && msfs == null)
 				return;
 			try {
 				if (mStartTime == 0L) {
@@ -266,27 +283,36 @@ public class FlightGear extends Activity {
 	private ProgressDialog mConnectingDialog;
 
 	private class ConnectTask implements Runnable {
+		public static final int SIM_TYPE_FGFS = 0;
+		public static final int SIM_TYPE_MSFS = 1;
 		private String ip;
 		private int port;
+		private int simType;
 
-		public ConnectTask(String ip, int port) {
+		public ConnectTask(String ip, int port, int simType) {
 			this.ip = ip;
 			this.port = port;
+			this.simType = simType;
 		}
 
 		@Override
 		public void run() {
 			try {
 
-				fgfs = new FGFSConnection(ip, port);
+				if (simType == SIM_TYPE_FGFS) {
+					fgfs = new FGFSConnection(ip, port);
+				} else if (simType == SIM_TYPE_MSFS) {
+					msfs = new MSFSConnection(ip, port);
+				}
 			} catch (IOException e) {
-				Bundle extras = new Bundle();
 				Message message = new Message();
 				message.obj = e.toString();
+				//showMsg(Comete.this, e.toString());
 				mConnectHandler.sendMessage(message);
 				e.printStackTrace();
 			} finally {
 				mConnectHandler.sendEmptyMessage(0);
+
 			}
 
 		}
@@ -301,13 +327,26 @@ public class FlightGear extends Activity {
 
 				@Override
 				public void run() {
-					if (fgfs == null)
+					if (fgfs == null && msfs == null)
 						return;
-					setAti();
-					setAsi();
-					setHdg();
-					setAlt();
-					setVsi();
+					
+					MSFSConnection.Controls controls = null;
+					
+					if (msfs != null) {
+						try {
+							controls = msfs.get("indicators");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+						
+					
+					setAti(controls);
+					setAsi(controls);
+					setHdg(controls);
+					setAlt(controls);
+					setVsi(controls);
 				}
 
 			});
@@ -316,19 +355,28 @@ public class FlightGear extends Activity {
 
 	UpdateThread mUpdateThread = null;
 
-	private void setAti() {
-		if (fgfs == null)
-			return;
+	private void setAti(MSFSConnection.Controls controls) {
+//		if (fgfs == null && msfs == null)
+//			return;
+		
+		
 		try {
-			Common.Values.pitch = fgfs.getFloat(Common.Properties.AI_PITCH);
-			Common.Values.roll = fgfs.getFloat(Common.Properties.AI_ROLL);
+			if (msfs != null && controls != null) {
+//				Common.Values.pitch = -controls.getPch();
+//				Common.Values.roll = -controls.getBnk();
+				Common.Values.pitch = controls.getAiPch();
+				Common.Values.roll = controls.getAiBnk();
+			} else if (fgfs != null) {
+				Common.Values.pitch = fgfs.getFloat(Common.Properties.AI_PITCH);
+				Common.Values.roll = fgfs.getFloat(Common.Properties.AI_ROLL);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-
+			e.printStackTrace();
 		} finally {
-			FlightGear.this.runOnUiThread(new Runnable() {
+			Comete.this.runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -346,17 +394,22 @@ public class FlightGear extends Activity {
 		}
 	}
 
-	private void setAsi() {
-		if (fgfs == null)
+	private void setAsi(MSFSConnection.Controls controls) {
+		if (fgfs == null && msfs == null)
 			return;
 		try {
-			Common.Values.ias = fgfs.getDouble(Common.Properties.ASI_IAS_KT);
+			if (msfs != null && controls != null) {
+				Common.Values.ias = controls.getIas();
+			} else if (fgfs != null) {
+				Common.Values.ias = fgfs.getDouble(Common.Properties.ASI_IAS_KT);
+			}
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			FlightGear.this.runOnUiThread(new Runnable() {
+			Comete.this.runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -375,15 +428,19 @@ public class FlightGear extends Activity {
 		}
 	}
 
-	private void setHdg() {
-		if (fgfs == null)
+	private void setHdg(MSFSConnection.Controls controls) {
+		if (fgfs == null && msfs == null)
 			return;
 		try {
-			Common.Values.heading = fgfs.getFloat(Common.Properties.HDG_DEG);
+			if (msfs != null && controls != null) {
+				Common.Values.heading = controls.getHdg();
+			} else if (fgfs != null) {
+				Common.Values.heading = fgfs.getFloat(Common.Properties.HDG_DEG);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			FlightGear.this.runOnUiThread(new Runnable() {
+			Comete.this.runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -395,15 +452,19 @@ public class FlightGear extends Activity {
 		}
 	}
 
-	private void setAlt() {
-		if (fgfs == null)
+	private void setAlt(MSFSConnection.Controls controls) {
+		if (fgfs == null && msfs == null)
 			return;
 		try {
-			Common.Values.alt = fgfs.getFloat(Common.Properties.ALT_FT);
+			if (msfs != null && controls != null) {
+				Common.Values.alt = controls.getAlt();
+			} else if (fgfs != null) {
+				Common.Values.alt = fgfs.getFloat(Common.Properties.ALT_FT);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			FlightGear.this.runOnUiThread(new Runnable() {
+			Comete.this.runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -418,17 +479,22 @@ public class FlightGear extends Activity {
 		}
 	}
 
-	private void setVsi() {
-		if (fgfs == null)
+	private void setVsi(MSFSConnection.Controls controls) {
+		if (fgfs == null && msfs == null)
 			return;
 		try {
-			Common.Values.vs = fgfs.getDouble(Common.Properties.VSI_VS_FPM);
+			if (msfs != null && controls != null) {
+				Common.Values.vs = controls.getVs();
+			} else if (fgfs != null) {
+				Common.Values.vs = fgfs.getDouble(Common.Properties.VSI_VS_FPM);
+			}
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			FlightGear.this.runOnUiThread(new Runnable() {
+			Comete.this.runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
@@ -436,7 +502,7 @@ public class FlightGear extends Activity {
 						Common.Values.VSI.setAngle();
 					} catch (ArgumentOutsideDomainException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						//e.printStackTrace();
 					} finally {
 						vsi.setAngle((float) Common.Values.VSI.angle);
 						vsi.invalidate();
@@ -452,7 +518,7 @@ public class FlightGear extends Activity {
 		@Override
 		public void run() {
 
-			if (fgfs != null) {
+			if (fgfs != null || msfs != null) {
 				if (mUpdateThread != null && mUpdateThread.isAlive()) {
 					mUpdateThread.interrupt();
 				}

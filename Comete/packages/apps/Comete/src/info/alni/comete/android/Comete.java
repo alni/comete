@@ -38,6 +38,7 @@ import org.holoeverywhere.widget.Spinner;
 import com.tokaracamara.android.verticalslidebar.VerticalSeekBar;
 
 import alni.android.common.CommonUtils;
+import alni.android.common.MathUtils;
 import alni.android.common.StringUtils;
 import alni.comete.android.widgets.gauges.NegPosAnalogGauge;
 import alni.comete.android.widgets.gauges.VerticalNegPosAnalogGauge;
@@ -219,6 +220,11 @@ public class Comete extends Activity implements View.OnTouchListener {
 		thrGetAirspeed.addProp(airspeedKey,
 				getString(R.string.prop_airspeed_format));
 		thrGetAirspeed.addProp(directionKey,
+				getString(R.string.prop_direction_format));
+		
+		thrGetAirspeed.addProp("tas",
+				getString(R.string.prop_airspeed_format));
+		thrGetAirspeed.addProp("hdg",
 				getString(R.string.prop_direction_format));
 
 		thrGetAirspeed.setEnabled(sharedPreferences.getBoolean("enableGetting",
@@ -504,7 +510,7 @@ public class Comete extends Activity implements View.OnTouchListener {
 	public int mPort;
 
 	private AlertDialog createConnectDialog() {
-		final LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(
+		final View ll = getLayoutInflater().inflate(
 				R.layout.connect_dialog, null);
 		final EditText etIpAddress = (EditText) ll.findViewById(R.id.ipAddress);
 		final EditText etPort = (EditText) ll.findViewById(R.id.port);
@@ -645,16 +651,24 @@ public class Comete extends Activity implements View.OnTouchListener {
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			if (Common.msfs != null) {
-				MSFSConnection.Controls controls = Common.msfs.getControls();
-				if (controls != null) {
+//			if (Common.msfs != null) {
+//				MSFSConnection.Controls controls = Common.msfs.getControls();
+//				if (controls != null) {
 //					mAdapter.getMainControlsFragment().getAirspeed().setValue(String.format(Locale.ENGLISH, 
-//							getString(R.string.prop_airspeed_format), controls.getSpd()));
-					mAdapter.getMainControlsFragment().getDirection().setValue(String.format(Locale.ENGLISH, 
-							getString(R.string.prop_direction_format), controls.getHdg()));
-				}
-			} else {
+//							getString(R.string.prop_airspeed_format), controls.getTas()));
+//					mAdapter.getMainControlsFragment().getDirection().setValue(String.format(Locale.ENGLISH, 
+//							getString(R.string.prop_direction_format), controls.getHdg()));
+//				}
+//			} else {
 				Bundle bundle = msg.getData();
+				if (bundle.containsKey("tas")) {
+					mAdapter.getMainControlsFragment().getAirspeed().setValue(String.format(Locale.ENGLISH, 
+							getString(R.string.prop_airspeed_format), bundle.getFloat("tas")));
+				} else if (bundle.containsKey("hdg")) {
+					mAdapter.getMainControlsFragment().getDirection().setValue(String.format(Locale.ENGLISH, 
+							getString(R.string.prop_direction_format), bundle.getFloat("hdg")));
+				}
+				
 				if (bundle.containsKey(airspeedKey)) {
 					String value = bundle.getString(airspeedKey);
 					mAdapter.getMainControlsFragment().getAirspeed()
@@ -686,7 +700,7 @@ public class Comete extends Activity implements View.OnTouchListener {
 					String value = bundle.getString(com1FreqKey);
 					mAdapter.getRadioPanelFragment().getCom1Text().setText(value);
 				}
-			}
+//			}
 		}
 	}
 
@@ -842,8 +856,25 @@ public class Comete extends Activity implements View.OnTouchListener {
 				
 				if (Common.msfs != null) {
 					try {
-						new MSFSRequestTask().execute(String.format(Locale.ENGLISH,
-								"pch=%.2f,bnk=%.2f,thr=%.2f", elevator*360, aileron*360, throttle));
+						MSFSConnection.Controls controls = new MSFSConnection.Controls();
+						float ele = Common.msfs.getLastSent().getEle();
+						float ail = Common.msfs.getLastSent().getAil();
+						float thr = Common.msfs.getLastSent().getThr();
+						if (MathUtils.floatMatches(ele, elevator, 2)) {
+							elevator = -100;
+						}
+						controls.setEle(elevator);
+						if (MathUtils.floatMatches(ail, aileron, 2)) {
+							aileron = -100;
+						}
+						controls.setAil(aileron);
+						if (MathUtils.floatMatches(thr, throttle, 2)) {
+							throttle = -100;
+						}
+						controls.setThr(throttle);
+						new MSFSRequestTask().execute(controls);
+//						new MSFSRequestTask().execute(String.format(Locale.ENGLISH,
+//								"pch=%.2f,bnk=%.2f,thr=%.2f", elevator*360, aileron*360, throttle));
 					} catch (/*IO*/Exception e) {
 						
 					}

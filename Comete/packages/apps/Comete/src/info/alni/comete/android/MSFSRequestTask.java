@@ -13,14 +13,19 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
 
-public class MSFSRequestTask extends AsyncTask<String, String, MSFSConnection.Controls>{
+public class MSFSRequestTask extends AsyncTask<Object, String, MSFSConnection.Controls>{
 
     @Override
-    protected MSFSConnection.Controls doInBackground(String... data/*uri*/) {
+    protected MSFSConnection.Controls doInBackground(Object... data/*uri*/) {
     	try {
     		if (Common.msfs != null) {
     			//System.out.println("DATA="+data[0]);
-    			return Common.msfs.send(data[0]);
+    			if (data[0] instanceof MSFSConnection.Controls) {
+    				return Common.msfs.send((MSFSConnection.Controls) data[0]);
+    			} else if (data[0] instanceof String) {
+    				return Common.msfs.send((String) data[0]);
+    			} 
+    			
     		}
     	} catch (IOException ex) {
     		ex.printStackTrace();

@@ -22,6 +22,8 @@ package info.alni.comete.android;
 
 import org.flightgear.fgfsclient.FGFSConnection;
 
+import com.google.gson.Gson;
+
 public class Common {
     public static final int NUM_OF_ENGINES = 12;
     
@@ -29,4 +31,6 @@ public class Common {
     public static final String URL_HELP_MAIN = URL_BASE + "help/index.html";
     public static FGFSConnection fgfs;
     public static MSFSConnection msfs;
+    
+    public static Gson gson = new Gson();
 }

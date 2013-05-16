@@ -21,10 +21,20 @@
 package alni.android.common;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
 import static java.lang.Math.*;
 import android.content.Context;
 
 public class MathUtils {
+	public static boolean floatMatches(float first, float second, int factor) {
+		String format = "%." + factor + "f";
+		String sFirst = String.format(Locale.ENGLISH, format, first);
+		String sSecond = String.format(Locale.ENGLISH, format, second);
+		return sFirst.equalsIgnoreCase(sSecond);
+	}
+	
+	
     public static float closestFloat(float value, ArrayList<Float> list) {
 		float min = Float.MIN_VALUE;
 		float closest = value;
@@ -68,6 +78,14 @@ public class MathUtils {
     }
 
     public static float valToMinMax(float value,float min,float max) {
+		if (value > max)
+		    return max;
+		else if (value < min)
+		    return min;
+		return value;
+    }
+    
+    public static double valToMinMax(double value,double min,double max) {
 		if (value > max)
 		    return max;
 		else if (value < min)

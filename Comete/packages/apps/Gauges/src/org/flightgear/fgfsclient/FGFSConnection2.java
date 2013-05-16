@@ -1,4 +1,4 @@
-// FGFSConnection.java - client library for the FlightGear flight simulator.
+// FGFSConnection.java - client library for the Comete flight simulator.
 // Started June 2002 by David Megginson, david@megginson.com
 // This library is in the Public Domain and comes with NO WARRANTY.
 
@@ -18,28 +18,28 @@ import android.os.Message;
 
 
 /**
- * A connection to a running instance of FlightGear.
+ * A connection to a running instance of Comete.
  *
- * <p>This class currently uses the FlightGear telnet interface,
+ * <p>This class currently uses the Comete telnet interface,
  * though it may be modified to use a different TCP/IP interface in
  * the future.  Client applications can use this library to examine
- * and modify internal FlightGear properties.</p>
+ * and modify internal Comete properties.</p>
  *
- * <p>To start FlightGear with the telnet server activated, use a
+ * <p>To start Comete with the telnet server activated, use a
  * command like this (to listen on port 9000):</p>
  *
  * <blockquote><pre>
  * fgfs --telnet=9000
  * </pre></blockquote>
  *
- * <p>Then create a connection to FlightGear from your Java client
+ * <p>Then create a connection to Comete from your Java client
  * application:</p>
  *
  * <blockquote><pre>
  * FGFSConnection fgfs = new FGFSConnection("localhost", 9000);
  * </pre></blockquote>
  *
- * <p>Now you can use the connection to get and set FlightGear
+ * <p>Now you can use the connection to get and set Comete
  * properties:</p>
  *
  * <blockquote><pre>
@@ -47,7 +47,7 @@ import android.os.Message;
  * fgfs.setDouble("/orientation/heading", 270.0);
  * </pre></blockquote>
  *
- * <p>All methods that communicate directly with FlightGear are
+ * <p>All methods that communicate directly with Comete are
  * synchronized, since they must work over a single telnet
  * connection.</p>
  */
@@ -62,14 +62,14 @@ public class FGFSConnection2
     /**
      * Constructor.
      *
-     * <p>Create a new connection to a running FlightGear program.
+     * <p>Create a new connection to a running Comete program.
      * The program must have been started with the --telnet=&lt;port&gt;
      * command-line option.</p>
      *
      * @param host The host name or IP address to connect to.
-     * @param port The port number where FlightGear is listening.
+     * @param port The port number where Comete is listening.
      * @exception IOException If it is not possible to connect to
-     * a FlightGear process.
+     * a Comete process.
      */
     public FGFSConnection2 (String host, int port)
 	throws IOException
@@ -89,7 +89,7 @@ public class FGFSConnection2
 
 
     /**
-     * Close the connection to FlightGear.
+     * Close the connection to Comete.
      *
      * <p>The client application should always invoke this method when
      * it has finished with a connection, to allow cleanup.</p>
@@ -115,11 +115,11 @@ public class FGFSConnection2
      * need the value as a string anyway, it makes sense to use this
      * method directly rather than forcing extra conversions.</p>
      *
-     * @param name The FlightGear property name to look up.
+     * @param name The Comete property name to look up.
      * @return The property value as a string (non-existant properties
      * return the empty string).
      * @exception IOException If there is an error communicating with
-     * FlightGear or if the connection is lost.
+     * Comete or if the connection is lost.
      * @see #getBoolean(String)
      * @see #getInt(String)
      * @see #getLong(String)
@@ -190,10 +190,10 @@ public class FGFSConnection2
      * you have the value as a string already, it makes sense to use
      * this method directly rather than forcing extra conversions.</p>
      *
-     * @param name The FlightGear property name to modify or create.
+     * @param name The Comete property name to modify or create.
      * @param value The new value for the property, as a string.
      * @exception IOException If there is an error communicating with
-     * FlightGear or if the connection is lost.
+     * Comete or if the connection is lost.
      * @see #setBoolean(String,boolean)
      * @see #setInt(String,int)
      * @see #setLong(String,long)

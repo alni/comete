@@ -24,11 +24,18 @@ import alni.android.common.MathUtils;
 import alni.comete.android.widgets.RotatingImageView;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.graphics.Path.Direction;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 
 public class AttitudeIndicator extends RotatingImageView {
 	// private float tx = 0f;
 	private float ty = 0f;
+	Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 	public AttitudeIndicator(Context context) {
 		super(context);
@@ -40,6 +47,12 @@ public class AttitudeIndicator extends RotatingImageView {
 
 	public AttitudeIndicator(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+	}
+	
+	private void initPaint() {
+		paint.setColor(0xFFFFFFFF);
+		paint.setStyle(Style.FILL);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
 	}
 
 	/*

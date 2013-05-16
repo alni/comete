@@ -26,6 +26,7 @@ public class PropertyGetterThread extends Thread {
 	private ArrayList<PP> props=new ArrayList<PP>();
 	
 	FGFSConnection myFGFSConn;
+	MSFSConnection myMSFSConn;
 	
 
 	private long sleepTime=1000;
@@ -80,6 +81,16 @@ public class PropertyGetterThread extends Thread {
 		  }
 	 }
 	 
+	 private void notifyMessage(String propName,float val) {
+		 if (handler!=null) {
+		    Message msg = handler.obtainMessage();
+		    Bundle b = new Bundle();
+		    b.putFloat(propName, val);
+		    msg.setData(b);
+		    handler.sendMessage(msg);
+		  }
+	 }
+	 
 	 int propIdx=0;
 	
 	@Override
@@ -87,59 +98,80 @@ public class PropertyGetterThread extends Thread {
 		PP pInUse=null;
 		while (true) {
 			if (Common.msfs != null && isEnabled()) {
-				notifyMessage("", "");
-			} else {
-				if (fgfs != null && isEnabled()) {    		
-			    	try {
+				try {
+					if (myMSFSConn==null) {
+						myMSFSConn=new MSFSConnection(Common.msfs.getHost(), Common.msfs.getPort());
+		    		}
+					
+					MSFSConnection.Controls controls = myMSFSConn.get();
+					if (controls != null) {
+						System.out.println(controls.getHdg());
+						notifyMessage("hdg", controls.getHdg());
+						notifyMessage("tas", controls.getTas());
+					}
+				} catch (IOException e) {
+			    	e.printStackTrace();
+			    }
+			} else if (fgfs != null && isEnabled()) {    		
+		    	try {
+
+		    		if (myFGFSConn==null) {
+		    			myFGFSConn=new FGFSConnection(fgfs.getHost(), fgfs.getPort());
+		    		}
+		    		
+		    		if (propIdx<props.size()) {
+			    		pInUse=props.get(propIdx);
+		    			
+		    			value=myFGFSConn.getFloat(pInUse.prop);
 	
-			    		if (myFGFSConn==null) {
-			    			myFGFSConn=new FGFSConnection(fgfs.getHost(), fgfs.getPort());
-			    		}
-			    		
-			    		if (propIdx<props.size()) {
-				    		pInUse=props.get(propIdx);
-			    			
-			    			value=myFGFSConn.getFloat(pInUse.prop);
-		
-			    			notifyMessage(
-			    					pInUse.prop,
-		    					String.format(
-									Locale.ENGLISH,
-									pInUse.format,
-									value
-								)
-							);	
-			    			
-			    			pInUse.done=true;
-			    			
-			    			propIdx++;
+		    			notifyMessage(
+		    					pInUse.prop,
+	    					String.format(
+								Locale.ENGLISH,
+								pInUse.format,
+								value
+							)
+						);	
+		    			
+		    			pInUse.done=true;
+		    			
+		    			propIdx++;
+			    		if (propIdx>=props.size()) {
+			    			propIdx=0;		    			
+			    		}		    				
+		    			while (props.get(propIdx).oneTime && props.get(propIdx).done) {
+		    				propIdx++;
 				    		if (propIdx>=props.size()) {
 				    			propIdx=0;		    			
 				    		}		    				
-			    			while (props.get(propIdx).oneTime && props.get(propIdx).done) {
-			    				propIdx++;
-					    		if (propIdx>=props.size()) {
-					    			propIdx=0;		    			
-					    		}		    				
-			    			}
-			    			
-			    		}
-				    } catch (IOException e) {
-				    	e.printStackTrace();
-				    }
-				} else {
-					if (fgfs==null) {
-						if (myFGFSConn!=null) {
-							try {
-								myFGFSConn.close();
-						    } catch (IOException e) {
-						    	e.printStackTrace();
-						    }
-							myFGFSConn=null;
-						}
+		    			}
+		    			
+		    		}
+			    } catch (IOException e) {
+			    	e.printStackTrace();
+			    }
+			} else {
+				if (fgfs==null) {
+					if (myFGFSConn!=null) {
+						try {
+							myFGFSConn.close();
+					    } catch (IOException e) {
+					    	e.printStackTrace();
+					    }
+						myFGFSConn=null;
 					}
-					
 				}
+				if (Common.msfs==null) {
+					if (myMSFSConn!=null) {
+						try {
+							myMSFSConn.close();
+					    } catch (IOException e) {
+					    	e.printStackTrace();
+					    }
+						myMSFSConn=null;
+					}
+				}
+				
 			}
 			
 			

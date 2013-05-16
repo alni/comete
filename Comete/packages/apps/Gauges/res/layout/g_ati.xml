@@ -44,6 +44,6 @@
          android:layout_height="200dp"
          android:cropToPadding="true"
          android:scaleType="centerInside"
-         android:src="@drawable/ati1_1" />
+         android:src="@drawable/ati1_1_filled" />
 
 </RelativeLayout>
