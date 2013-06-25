@@ -2,7 +2,7 @@
 // Started June 2002 by David Megginson, david@megginson.com
 // This library is in the Public Domain and comes with NO WARRANTY.
 
-package info.alni.comete.android;
+package comete.android.common;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static info.alni.comete.android.Common.gson;
+import com.google.gson.Gson;
 
 /**
  * A connection to a running instance of Comete.
@@ -69,6 +69,8 @@ import static info.alni.comete.android.Common.gson;
  * </p>
  */
 public class MSFSConnection {
+	
+	public static Gson gson = new Gson();
 
 	private String host;
 	private Controls controls = new Controls();
@@ -160,9 +162,9 @@ public class MSFSConnection {
 	
 	private long timeLastSent = -1;
 	
-	public synchronized Controls send(String data) throws IOException {
+	public synchronized Controls set(String offset, String value) throws IOException {
 		//if (timeLastSent == -1 || System.currentTimeMillis() > timeLastSent + 125) {
-			out.println(data + '\r');
+			out.println("set " + offset + ' ' + value + '\r');
 			out.flush();
 			//timeLastSent = System.currentTimeMillis();
 			//controls = gson.fromJson(in.readLine(), Controls.class);

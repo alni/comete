@@ -1,5 +1,5 @@
 /**
- * Comete for Comete - Control Comete with an Android device
+ * Comete - Control Comete with an Android device
  * Copyright (C) 2011-2013  Alexander Nilsen
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,6 @@
 
 package info.alni.comete.android;
 
-import info.alni.comete.android.R;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -332,6 +331,10 @@ public class Comete extends Activity implements View.OnTouchListener {
 			} catch (IOException e) {
 				showMsg(Comete.this, e.toString());
 			}
+		} else if (Common.msfs != null) {
+			String str = mAdapter.getRadioPanelFragment()
+					.getNav1Text().getText().toString();
+			new MSFSRequestTask().execute("set NAV1 " + str);
 		}
 	}
 
@@ -344,6 +347,10 @@ public class Comete extends Activity implements View.OnTouchListener {
 			} catch (IOException e) {
 				showMsg(Comete.this, e.toString());
 			}
+		} else if (Common.msfs != null) {
+			String str = mAdapter.getRadioPanelFragment()
+					.getNav2Text().getText().toString();
+			new MSFSRequestTask().execute("set NAV2 " + str);
 		}
 	}
 
@@ -368,6 +375,10 @@ public class Comete extends Activity implements View.OnTouchListener {
 			} catch (IOException e) {
 				showMsg(Comete.this, e.toString());
 			}
+		} else if (Common.msfs != null) {
+			String str = mAdapter.getRadioPanelFragment()
+					.getCom1Text().getText().toString();
+			new MSFSRequestTask().execute("set COM1 " + str);
 		}
 	}
 
@@ -807,7 +818,12 @@ public class Comete extends Activity implements View.OnTouchListener {
 			SensorManager.getRotationMatrix(mR, mI, mGData, mMData);
 			SensorManager.getOrientation(mR, mOrient);
 
-			aileron_ = tweakAileronValue(mGData[1]);
+			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+				aileron_ = tweakAileronValue(mGData[0]);
+			} else {
+				aileron_ = tweakAileronValue(mGData[1]);
+			}
+			
 			elevator_ = tweakElevatorValue(mGData[2]);
 
 			float aileron = aileron_ - aileronOffset_;
@@ -876,7 +892,7 @@ public class Comete extends Activity implements View.OnTouchListener {
 //						new MSFSRequestTask().execute(String.format(Locale.ENGLISH,
 //								"pch=%.2f,bnk=%.2f,thr=%.2f", elevator*360, aileron*360, throttle));
 					} catch (/*IO*/Exception e) {
-						
+						e.printStackTrace();
 					}
 				} else if (fgfs != null) {
 					try {
@@ -938,12 +954,12 @@ public class Comete extends Activity implements View.OnTouchListener {
 	private String brakeLeftPropKey = "";
 	private String brakeRightPropKey = "";
 	String starter2PropKey = "";
-	String nav1FreqPropKey = "";
+	public String nav1FreqPropKey = "";
 	private String nav1RadPropKey = "";
-	String nav2FreqPropKey = "";
+	public String nav2FreqPropKey = "";
 	private String nav2RadPropKey = "";
-	String adf1FreqPropKey = "";
-	String com1FreqPropKey = "";
+	public String adf1FreqPropKey = "";
+	public String com1FreqPropKey = "";
 	String fgViewPropKey = "";                   
 
 	float aileronMoltDefault = 2;
@@ -1040,8 +1056,15 @@ public class Comete extends Activity implements View.OnTouchListener {
 	}
 
 	private float tweakAileronValue(float aileron) {
+		
 		aileron /= SensorManager.GRAVITY_EARTH;
+//		System.out.println("AILERON=" + aileron);
+//		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+//			aileron = aileron - (25f/32f); //0.78125
+//		}
 		aileron *= aileronMoltDefault;
+		
+		
 		return valToMinMax(aileron);
 		/*
 		 * if (aileron > 1.0f) aileron = 1.0f; else if (aileron < -1.0f) aileron
@@ -1090,25 +1113,26 @@ public class Comete extends Activity implements View.OnTouchListener {
 		}
 	}
 
+	// Changed the "[%d]" in the strings to "[$d]" as Lint was complaining
 	private void getPrefs() {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getBaseContext());
 
 		throttleArr = sharedPreferences.getString("throttleKey",
-				getString(R.string.prop_throttle)).split("%d");
+				getString(R.string.prop_throttle)).split("$d");
 
 		mixtureArr = sharedPreferences.getString("mixtureKey",
-				getString(R.string.prop_mixture)).split("%d");
+				getString(R.string.prop_mixture)).split("$d");
 		propellerArr = sharedPreferences.getString("propellerKey",
-				getString(R.string.prop_propeller)).split("%d");
+				getString(R.string.prop_propeller)).split("$d");
 		magnetosArr = sharedPreferences.getString("magnetosKey",
-				getString(R.string.prop_magnetos)).split("%d");
+				getString(R.string.prop_magnetos)).split("$d");
 		starterArr = sharedPreferences.getString("starterKey",
-				getString(R.string.prop_starter)).split("%d");
+				getString(R.string.prop_starter)).split("$d");
 		startSwitchsArr = sharedPreferences.getString("starterSwitchKey",
-				getString(R.string.prop_starter_switch)).split("%d");
+				getString(R.string.prop_starter_switch)).split("$d");
 		setReverserArr(sharedPreferences.getString("reverserKey",
-				getString(R.string.prop_reverser)).split("%d"));
+				getString(R.string.prop_reverser)).split("$d"));
 
 		flapPropKey = sharedPreferences.getString("flapKey",
 				getString(R.string.prop_flap));

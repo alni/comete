@@ -1,19 +1,49 @@
--- "Slave Server" example LUA plug-in, by Pete Dowson, October 2009
--- To make the Server FS act as a slave, following the Client FS acting as Master
+-- Comete Server Library - Control MSFS with an Android device
+-- Copyright (C) 2011-2013  Alexander Nilsen
+-- 
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+-- 
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+-- 
+-- You should have received a copy of the GNU General Public License
+-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
--- The SOCKET module is built into FSUIPC, but is not active until "required"
+
+-- Comete Server Library by alni
+-- =============================
+-- Version 0.5 
+-- for FSUIPC
+--
+---------------------------------------------------------------------
+-- Usage: * save to MSFS/Modules/
+--        * change the HOST to the IP Address of your computer
+--        * optionaly change the PORT
+---------------------------------------------------------------------
+-- # CONFIGURATION
+
+HOST = "192.168.0.16"
+PORT = "8384"
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+-- # MAIN PROGRAM
+-- DO NOT TOUCH THE CODE BELOW UNLESS YOU KNOW WHAT YOU ARE DOING
+---------------------------------------------------------------------
+
 socket = require("socket");
 json = require("json");
 require"copas"
-require"comete"
 
-comete.init(ipc)
+package.loaded[ 'comete' ] = nil
+require 'comete'
 
--- Set the host name to the name of the PC running this Server
-host = "192.168.0.16";
-
--- The port must match the port selected in the client and not clash with others.
-port = "8384";
+comete.init(ipc, print)
 
 local function senddata(control)
 	lat, lon, alt, pitch, bank, hdgT =
@@ -75,72 +105,38 @@ local function send_indicators(control)
 end
 
 local function processdata(command, control)
-
-	w = command.gmatch("%S+")
-	action = w()
-	offset = w()
-	value = w()
-	if action == "get" then
-		control:send(comete.get(offset) + "\n")
-	elseif action == "set" and value ~= nil then
-		comete.set(offset, value)
-	end
-
-
-	-- decode string, just numbers in order with non-number separators
-
-	w = json.decode(command)
-	elevator = w.ele
-	aileron = w.ail
-	throttle = w.thr
-
-	--w = string.gmatch(command, "[+-]?[0-9%.?]+")
-	--lat = w()
-	--lon = w()
-	--alt = w()
-	--pitch = w()
-	--bank = w()
-	--throttle = w()
-	--hdgT = w()
 	
-	-- This simply sets the aircraft position and attitude
-	-- according to the parameters received
-
-	-- we need to convert to FS units
-	--hdgT = (((hdgT * 65536) / 360)) * 65536
-	--lat = (lat / 90) * (10001750 * 65536 * 65536)
-	--lon = (lon / 360) *  (65536 * 65536 * 65536 * 65536)
-	--alt = (alt / 3.28084) * (65536 * 65536)
-	--pitch = (pitch / 360) * (65536 * 65536)
-	--bank = (bank / 360) * (65536 * 65536)
-	--pitch = (-pitch / 360) * 16383
-	--bank = (bank / 360) * 16383
-	--throttle = (throttle / 1) * 16383
-
-	-- now write it all in one structure write
-	--ipc.writeStruct(0x0560,"3DD", lat, lon, alt, "2SD", pitch, bank, "1UD", hdgT)
-	--ipc.writeStruct(0x0578, "2SD", pitch, bank)
-	if elevator ~= nil and elevator >= -1 then
-		comete.set("elevator", elevator)
-		--elevator = -elevator * 16383
-		--ipc.writeStruct(0x0BB2, "2SD", elevator)
-	end
-	if aileron ~= nil and aileron >= -1 then
-		comete.set("aileron", aileron)
-		--aileron = aileron * 16383
-		--ipc.writeStruct(0x0BB6, "2SD", aileron)
-	end
-	if throttle ~= nil and throttle >= -4 then
-		for i=1,4 do
-			comete.set("throttle"..i, throttle)
+	
+	if command:sub(1,3) == "get" or command:sub(1,3) == "set" then
+		w = {}
+		for word in command:gmatch("%S+") do table.insert(w, word) end
+		action = w[1]
+		offset = w[2]
+		value = w[3]
+		if action == "get" then
+			control:send(comete.get(offset) .. "\n")
+		elseif action == "set" and value ~= nil then
+			comete.set(offset, value)
 		end
-		--throttle = throttle * 16383
-		--ipc.writeStruct(0x089A, "2SD", throttle) -- Engine 1
-		--ipc.writeStruct(0x0932, "2SD", throttle) -- Engine 2
-		--ipc.writeStruct(0x09CA, "2SD", throttle) -- Engine 3
-		--ipc.writeStruct(0x0A62, "2SD", throttle) -- Engine 4
-	end
+	elseif command ~= "data" then
+		-- decode string as json
+		w = json.decode(command)
+		elevator = w.ele
+		aileron = w.ail
+		throttle = w.thr
 
+		if comete.between(elevator, -1, 1) then
+			comete.set("elevator", elevator)
+		end
+		if comete.between(aileron, -1, 1) then
+			comete.set("aileron", aileron)
+		end
+		if comete.between(throttle, -25, 100) then
+			for i=1,4 do
+				comete.set("throttle"..i, throttle)
+			end
+		end
+	end
 end
 
 local function handler(control)
@@ -159,13 +155,15 @@ local function handler(control)
 		elseif command == "get indicators" then
 			send_indicators(control);
 		else
-			processdata(command);
+			processdata(command, control);
 		end
 	end
 end
 
-local server = socket.bind(host, port)
+local server = socket.bind(HOST, PORT)
 
 copas.addserver(server, handler)
 
 copas.loop()
+
+-- END OF FILE

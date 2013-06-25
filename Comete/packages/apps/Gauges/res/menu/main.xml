@@ -3,16 +3,16 @@
     
     <item
         android:id="@+id/connect"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="Connect"/>
     <item
         android:id="@+id/disconnect"
         android:enabled="false"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="Disconnect"/>
     <item
         android:id="@+id/help"
-        android:showAsAction="always"
+        android:showAsAction="ifRoom"
         android:title="Help">
     </item>
 

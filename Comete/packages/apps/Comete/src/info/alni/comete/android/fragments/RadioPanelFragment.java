@@ -12,6 +12,8 @@ import org.holoeverywhere.widget.SeekBar;
 import org.holoeverywhere.widget.SeekBar.OnSeekBarChangeListener;
 
 import info.alni.comete.android.Comete;
+import info.alni.comete.android.Common;
+import info.alni.comete.android.MSFSRequestTask;
 import info.alni.comete.android.R;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,70 @@ public class RadioPanelFragment extends Fragment implements
 
 	public RadioPanelFragment() {
 
+	}
+	
+	public void setNav1Freq(View view) {
+		if (fgfs != null) {
+			double v = Double.parseDouble(
+					getNav1Text().getText().toString());
+			try {
+				fgfs.setDouble(mAct.nav1FreqPropKey, v);
+			} catch (IOException e) {
+				showMsg(mAct, e.toString());
+			}
+		} else if (Common.msfs != null) {
+			String str = 
+					getNav1Text().getText().toString();
+			new MSFSRequestTask().execute("set NAV1 " + str);
+		}
+	}
+
+	public void setNav2Freq(View view) {
+		if (fgfs != null) {
+			double v = Double.parseDouble(
+					getNav2Text().getText().toString());
+			try {
+				fgfs.setDouble(mAct.nav2FreqPropKey, v);
+			} catch (IOException e) {
+				showMsg(mAct, e.toString());
+			}
+		} else if (Common.msfs != null) {
+			String str = 
+					getNav2Text().getText().toString();
+			new MSFSRequestTask().execute("set NAV2 " + str);
+		}
+	}
+
+	public void setAdf1Freq(View view) {
+		if (fgfs != null) {
+			double v = Double.parseDouble(
+					getAdf1Text().getText().toString());
+			try {
+				fgfs.setDouble(mAct.adf1FreqPropKey, v);
+			} catch (IOException e) {
+				showMsg(mAct, e.toString());
+			}
+		} else if (Common.msfs != null) {
+			String str = 
+					getAdf1Text().getText().toString();
+			new MSFSRequestTask().execute("set ADF1 " + str);
+		}
+	}
+
+	public void setCom1Freq(View view) {
+		if (fgfs != null) {
+			double v = Double.parseDouble(
+					getCom1Text().getText().toString());
+			try {
+				fgfs.setDouble(mAct.com1FreqPropKey, v);
+			} catch (IOException e) {
+				showMsg(mAct, e.toString());
+			}
+		} else if (Common.msfs != null) {
+			String str = 
+					getCom1Text().getText().toString();
+			new MSFSRequestTask().execute("set COM1 " + str);
+		}
 	}
 
 	@Override

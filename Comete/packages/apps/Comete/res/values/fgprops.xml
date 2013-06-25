@@ -2,14 +2,17 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
   tools:ignore="MissingTranslation">
-    <string name="prop_throttle">/controls/engines/engine[%d]/throttle</string>
-    <string name="prop_mixture">/controls/engines/engine[%d]/mixture</string>
-    <string name="prop_propeller">/controls/engines/engine[%d]/propeller-pitch</string>
-    <string name="prop_magnetos">/controls/engines/engine[%d]/magnetos</string>
+  <!-- 
+  // Changed the "[%d]" in the strings to "[$d]" as Lint was complaining
+   -->
+    <string name="prop_throttle">/controls/engines/engine[$d]/throttle</string>
+    <string name="prop_mixture">/controls/engines/engine[$d]/mixture</string>
+    <string name="prop_propeller">/controls/engines/engine[$d]/propeller-pitch</string>
+    <string name="prop_magnetos">/controls/engines/engine[$d]/magnetos</string>
     <string name="prop_starter2">/controls/switches/starter</string>
-    <string name="prop_starter">/controls/engines/engine[%d]/starter</string>
-    <string name="prop_starter_switch">/controls/engines/engine[%d]/starter-switch</string>
-    <string name="prop_reverser">/controls/engines/engine[%d]/reverser</string>
+    <string name="prop_starter">/controls/engines/engine[$d]/starter</string>
+    <string name="prop_starter_switch">/controls/engines/engine[$d]/starter-switch</string>
+    <string name="prop_reverser">/controls/engines/engine[$d]/reverser</string>
     
     
     

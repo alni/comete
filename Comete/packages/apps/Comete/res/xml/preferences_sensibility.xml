@@ -5,7 +5,7 @@
    xmlns:robobunny="http://robobunny.com"
    holo:title="sensibility">
         <PreferenceCategory holo:title="Aileron">            
-            <alni.comete.android.fgfs.SeekBarPreference
+            <info.alni.comete.android.SeekBarPreference
             	holo:key="aileronMoltDefaultKey"
                 holo:title="Moltiply"
                 holo:summary="Adjust moltiply factor"
@@ -16,7 +16,7 @@
             />
         </PreferenceCategory>
         <PreferenceCategory holo:title="Elevator">
-             <alni.comete.android.fgfs.SeekBarPreference
+             <info.alni.comete.android.SeekBarPreference
             	holo:key="elevatorMoltDefaultKey"
                 holo:title="Moltiply"
                 holo:summary="Adjust moltiply factor"
@@ -26,7 +26,7 @@
                 robobunny:units=""                
             />
             
-            <alni.comete.android.fgfs.SeekBarPreference
+            <info.alni.comete.android.SeekBarPreference
             	holo:key="elevatorSubDefaultKey"
                 holo:title="Subtract"
                 holo:summary="Adjust moltiply factor"
@@ -38,7 +38,7 @@
             />
         </PreferenceCategory>
         <PreferenceCategory holo:title="Rudder">            
-            <alni.comete.android.fgfs.SeekBarPreference
+            <info.alni.comete.android.SeekBarPreference
             	holo:key="rudderMoltDefaultKey"
                 holo:title="Moltiply"
                 holo:summary="Adjust moltiply factor"
